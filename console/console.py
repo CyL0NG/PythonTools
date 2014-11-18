@@ -6,10 +6,11 @@
 # @author cylong
 # @version 1.0
 # @date 2014-11-18
+from __future__ import print_function
 import platform
 import ctypes
 import sys
-import time
+
 class Console(object):
 
     def __init__(self):
@@ -38,15 +39,15 @@ class Console(object):
         # set console color
         ctypes.windll.kernel32.SetConsoleTextAttribute(self._handler, \
                 self._color[type]['color'])
-        print '[%s] %s' % (self._color[type]['symbol'], msg)
+        print('[%s] %s' % (self._color[type]['symbol'], msg))
         # reset color
         ctypes.windll.kernel32.SetConsoleTextAttribute(self._handler, \
                 self._color['info']['color'])
 
     def __print_Linux(self, msg, type):
-        print '[%s] %s%s%s' % (self._color[type]['symbol'], \
+        print('[%s] %s%s%s' % (self._color[type]['symbol'], \
                 self._color[type]['color'], msg, \
-                self._color['default']['color'])
+                self._color['default']['color']))
 
     def show(self, msg):
         self._process(msg, 'info')
@@ -69,9 +70,12 @@ class Console(object):
             return
         else:
             self._current = percent
-            progress_str = "\r[*] [%s%s%4s%%]" % (int(percent / 2) * "=", \
+            progress_str = '\r[*] [%s%s%4s%%]' % (int(percent / 2) * '=', \
                     (50 - int(percent / 2)) * ' ', \
                     percent)
-            print progress_str,
+            print(progress_str, end="")
             sys.stdout.flush()
+
+        if currentNum == length:
+            print()
 
