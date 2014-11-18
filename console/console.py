@@ -1,15 +1,21 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 ##
+# support python2.7
 # @file console.py
 # @author cylong
 # @version 1.0
 # @date 2014-11-18
 import platform
 import ctypes
+import sys
+import time
 class Console(object):
 
     def __init__(self):
+        #init progress
+        self._current = 0
+        #windows or linux
         if platform.system() == "Windows":
             self._platform = "windows"
             self._color = {'danger': { 'color': 0x0c, 'symbol': '-'},  # red
@@ -52,3 +58,16 @@ class Console(object):
 
     def show_success(self, msg):
         self._process(msg, 'success')
+
+    def show_progress(self, currentNum, length=100):
+        percent = int(float(currentNum) / float(length) * 100)
+        if percent == self._current:
+            return
+        else:
+            self._current = percent
+            progress_str = "\r[*] [%s%s%4s%%]" % (int(percent / 2) * "=", \
+                    (50 - int(percent / 2)) * ' ', \
+                    percent)
+            print progress_str,
+            sys.stdout.flush()
+
