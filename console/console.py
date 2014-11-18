@@ -36,13 +36,17 @@ class Console(object):
             
     def __print_Windows(self, msg, type):
         # set console color
-        ctypes.windll.kernel32.SetConsoleTextAttribute(self._handler, self._color[type]['color'])
+        ctypes.windll.kernel32.SetConsoleTextAttribute(self._handler, \
+                self._color[type]['color'])
         print '[%s] %s' % (self._color[type]['symbol'], msg)
         # reset color
-        ctypes.windll.kernel32.SetConsoleTextAttribute(self._handler, self._color['info']['color'])
+        ctypes.windll.kernel32.SetConsoleTextAttribute(self._handler, \
+                self._color['info']['color'])
 
     def __print_Linux(self, msg, type):
-        print '[%s] %s%s%s' % (self._color[type]['symbol'], self._color[type]['color'], msg, self._color['default']['color'])
+        print '[%s] %s%s%s' % (self._color[type]['symbol'], \
+                self._color[type]['color'], msg, \
+                self._color['default']['color'])
 
     def show(self, msg):
         self._process(msg, 'info')
