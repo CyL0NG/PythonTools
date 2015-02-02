@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 ##
-# support python2.7
+# support both python 2 and python 3
 # @file console.py
 # @author cylong
 # @version 1.0
